@@ -768,8 +768,8 @@ set cursorline
 
 " These settings highlight a vertical cursor column:
 "set cursorcolumn
-"highlight CursorColumn ctermfg=White ctermbg=Yellow cterm=bold guifg=white guibg=yellow gui=bold
-"highlight CursorColumn ctermfg=Black ctermbg=Yellow cterm=bold guifg=Black guibg=yellow gui=NONE
+highlight CursorColumn ctermfg=White ctermbg=Yellow cterm=bold guifg=white guibg=yellow gui=bold
+highlight CursorColumn ctermfg=Black ctermbg=Yellow cterm=bold guifg=Black guibg=yellow gui=NONE
 "signature.target": "echo"
 let g:airline_powerline_fonts = 1
 noremap <A-k> 42k
@@ -783,16 +783,6 @@ set guicursor+=i:blinkwait10
 :silent
 
 
-"hi normal guibg=000000
-"hi Normal guibg=none ctermbg=none
-"hi LineNr guibg=none ctermbg=none
-"hi Folded guibg=none ctermbg=none
-"hi NonText guibg=none ctermbg=none
-"hi SpecialKey guibg=none ctermbg=none
-"hi VertSplit guibg=none ctermbg=none
-"hi EndOfBuffer guibg=none ctermbg=none
-"hi LineNr guibg=NONE
-"hi Normal guibg=NONE ctermbg=NONE 
 
 let NERDTreeMinimalUI=1
   tnoremap <Esc> <C-\><C-n>
@@ -858,4 +848,5 @@ let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
 
-
+hi Normal guibg=NONE ctermbg=NONE
+highlight SignColumn guibg=NONE
