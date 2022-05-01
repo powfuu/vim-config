@@ -274,7 +274,6 @@ nnoremap N Nzzzv
 
 nnoremap 1 daw
 nnoremap 2 caw
-nnoremap 3 dip
 "" NERDTree configuration
 let g:NERDTreeChDirMode=2
 let g:NERDTreeIgnore=['node_modules','\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
