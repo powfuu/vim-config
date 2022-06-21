@@ -27,123 +27,73 @@ if !filereadable(vimplug_exists)
 endif
 
 call plug#begin(expand('~/.vim/plugged'))
+
+Plug 'leafgarland/typescript-vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'ryanoasis/vim-devicons'
+
+if has('nvim')
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/defx.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'mhinz/vim-startify'
 Plug 'dikiaap/minimalist'
-Plug 'catppuccin/nvim', {'as': 'catppuccin'}
-
 Plug 'andymass/vim-matchup'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'shaunsingh/nord.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'drewtempelmeyer/palenight.vim'
-" syntax
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'sheerun/vim-polyglot'
-Plug 'maxmellon/vim-jsx-pretty'
-" status bar
-" Themes
-Plug 'projekt0n/github-nvim-theme'
-Plug 'morhetz/gruvbox'
-Plug 'chriskempson/base16-vim'
-Plug 'tomasiser/vim-code-dark'
-
-" Tree
+Plug 'mxw/vim-jsx'
 Plug 'scrooloose/nerdtree'
-Plug 'embark-theme/vim', { 'as': 'embark', 'branch': 'main' }
-" typing
-Plug 'tpope/vim-surround'
-
-" tmux
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
-
-" autocomplete
-Plug 'sirver/ultisnips'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" test
-Plug 'tyewang/vimux-jest-test'
-Plug 'janko-m/vim-test'
-
-" IDE
-Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'easymotion/vim-easymotion'
-Plug 'mhinz/vim-signify'
 Plug 'yggdroot/indentline'
-Plug 'scrooloose/nerdcommenter'
-
-" git
-Plug 'tpope/vim-fugitive'
-
-Plug 'tpope/vim-repeat'
-
-
-
-Plug 'ryanoasis/vim-devicons'
-Plug 'liuchengxu/space-vim-dark'
 Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'  
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/grep.vim'
-Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/CSApprox'
 Plug 'Raimondi/delimitMate'
 Plug 'majutsushi/tagbar'
 Plug 'dense-analysis/ale'
 Plug 'Yggdroot/indentLine'
-Plug 'editor-bootstrap/vim-bootstrap-updater'
-Plug 'tpope/vim-rhubarb'
-Plug 'frazrepo/vim-rainbow'
-Plug 'sheerun/vim-polyglot'
 Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-surround'
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'sirver/ultisnips'
-Plug 'mhinz/vim-signify'
 Plug 'yggdroot/indentline'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Shougo/vimproc.vim'
-Plug 'maxmellon/vim-jsx-pretty'  
 Plug 'pangloss/vim-javascript'
   Plug 'mxw/vim-jsx'
-
 Plug 'jiangmiao/auto-pairs' 
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'gko/vim-coloresque'
-Plug 'tpope/vim-haml'
 Plug 'mattn/emmet-vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'joshdick/onedark.vim'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'yuezk/vim-js'
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'scrooloose/nerdtree'
-Plug 'sheerun/vim-polyglot'
-Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-surround'
-Plug 'benmills/vimux'
-Plug 'sirver/ultisnips'
-Plug 'mhinz/vim-signify'
-Plug 'yggdroot/indentline'
-" Vim-Plug:
-Plug 'Mofiqul/vscode.nvim'
-Plug 'martinsione/darkplus.nvim'
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'mlaursen/vim-react-snippets'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 else
@@ -154,7 +104,7 @@ call plug#end()
 syntax on
 set t_Co=256
 
-colorscheme catppuccin
+colorscheme onedark
 
 let g:vscode_style = "dark"
 let g:vscode_transparency = 1
@@ -225,7 +175,7 @@ set gfn=Monospace\ 10
 if has("gui_running")
   if has("gui_mac") || has("gui_macvim")
     set guifont=Menlo:h12
-    set transparency=7
+    set transparency=8
   endif
 else
   let g:CSApprox_loaded = 1
@@ -272,16 +222,19 @@ set titlestring=%F
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-nnoremap 1 daw
-nnoremap 2 caw
-"" NERDTree configuration
+
+vmap <C-x> "+y
+
+set clipboard=unnamedplus
+
+" NERDTree configuration
 let g:NERDTreeChDirMode=2
 let g:NERDTreeIgnore=['node_modules','\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
 let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
-let g:NERDTreeShowBookmarks=1
+let g:NERDTreeShowBookmarks=0
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 30
+let g:NERDTreeWinSize = 40
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/
 
 " grep.vim
@@ -564,12 +517,12 @@ set relativenumber
 " Add > at current position without closing the current tag, default is ''
 "
 
-nmap <M-Right> :vertical resize +12<CR>
-nmap <M-Left> :vertical resize -12<CR>
+nmap <M-Right> :vertical resize +8<CR>
+nmap <M-Left> :vertical resize -8<CR>
 nmap <M-Down> :resize +12<CR>
 nmap <M-Up> :resize -12<CR>
-nmap <A-r> :NERDTreeToggle<CR>
-nmap <A-t> :NERDTreeFocus<CR>
+nmap <S-r> :NERDTreeToggle<CR>
+nmap <S-d> :NERDTreeFocus<CR>
 nmap <A-.> :tabnew<CR>
 nmap <A-'> :set scl=no<CR>
 nmap <A-;> :set scl=yes<CR>
@@ -578,16 +531,20 @@ nmap <S-h> :BufferPrevious<CR>
 nmap <S-l> :BufferNext<CR>
 nmap <S-j> :BufferMovePrevious<CR>
 nmap <S-k> :BufferMoveNext<CR>
-nmap <TAB> :tabnext<CR>
+nmap <TAB> :bnext<CR>
+nmap <S-q> :bd<CR>
 nnoremap <silent>    <A-C-l> :BufferClose <CR> :q <CR>
 cnoreabbrev n noh
-cnoreabbrev . Telescope find_files
 cnoreabbrev tree NERDTree
-cnoreabbrev t term
+cnoreabbrev t ter
 cnoreabbrev s split
 cnoreabbrev d vsplit
 nnoremap <C-j> 10<C-e>
 nnoremap <C-k> 10<C-y>
+nmap <S-A-l> :vsplit<CR>
+nmap <S-A-k> :split<CR>
+nnoremap f <cmd>Telescope find_files<CR>
+cnoreabbrev f <cmd>Telescope find_files hidden=true<CR>
 
 set encoding=UTF-8
 nnoremap <c-s> :w<CR>
@@ -779,6 +736,7 @@ set guicursor+=n-v-c:blinkon0
 set guicursor+=i:blinkwait10
 
 
+
 :silent
 
 
@@ -826,26 +784,235 @@ autocmd syntax *
         \ endif
 
 
-lua << EOF
-require('telescope').setup{
-   defaults = { file_ignore_patterns = { "node_modules" }}
-}
-EOF
+
 
 
 let NERDTreeDirArrowExpandable = "\u00a0"
 let NERDTreeDirArrowCollapsible = "\u00a0"
 autocmd VimEnter * set winfixwidth
-set signcolumn=yes
 autocmd BufEnter * sign define dummy
 autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
 
-let g:gitgutter_async=0
-let g:gitgutter_max_signs = 2000
-set updatetime=250
-let g:gitgutter_realtime = 0  
-let g:gitgutter_eager = 0
-
+set updatetime=10
+highlight SignColumn guibg=NONE
 
 hi Normal guibg=NONE ctermbg=NONE
-highlight SignColumn guibg=NONE
+autocmd ColorScheme * highlight! link SignColumn LineNr
+
+" Use deoplete.
+
+" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
+" unicode characters in the file autoload/float.vim
+set encoding=utf-8
+
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=1
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Run the Code Lens action on the current line.
+nmap <leader>cl  <Plug>(coc-codelens-action)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocActionAsync('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+" For Vim 8 (<c-@> corresponds to <c-space>):
+" imap <c-@> <Plug>(asyncomplete_force_refresh)
+"
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+au VimEnter *  NERDTree
+autocmd VimEnter * NERDTree | wincmd p
+":set signcolumn=yes
+hi Directory guifg=#a8d2eb guibg=NONE
+"set cursorline
+
+nnoremap ,. daw
+nnoremap . caw
+nnoremap <S-A-q> :qall<CR>
+
+:resize
+:hi TabLineFill term=bold cterm=bold ctermbg=0
+highlight clear StatusLine
+
+"HIDE NERD TREE STATUS BAR <<< BOTTOM
+augroup filetype_nerdtree
+    au!
+    au FileType nerdtree call s:disable_lightline_on_nerdtree()
+    au BufWinEnter,TabEnter * call s:disable_lightline_on_nerdtree()
+augroup END
+fu s:disable_lightline_on_nerdtree() abort
+   let nerdtree_winnr = index(map(range(1, winnr('$')), {_,v -> getbufvar(winbufnr(v), '&ft')}), 'nerdtree') + 1
+    call timer_start(0, {-> nerdtree_winnr && setwinvar(nerdtree_winnr, '&stl', '%#Normal#')})
+endfu
+
+set number
+set title
+set showmatch
+set hlsearch
+set autoindent
+set smartindent
+
+:set wrap linebreak
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
+let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
+let g:NERDTreeDirArrowExpandable = "\u00a0"
+let g:NERDTreeDirArrowCollapsible = "\u00a0"
+lua << EOF
+require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
+
