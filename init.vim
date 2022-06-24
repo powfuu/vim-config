@@ -1,5 +1,4 @@
 " vim-bootstrap 2022-03-21 17:36:32
-
 "*****************************************************************************
 "" Vim-Plug core
 "*****************************************************************************
@@ -23,11 +22,9 @@ if !filereadable(vimplug_exists)
   silent exec "!"curl_exists" -fLo " . shellescape(vimplug_exists) . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
   let g:not_finish_vimplug = "yes"
 
-  autocmd VimEnter * PlugInstall
 endif
 
 call plug#begin(expand('~/.vim/plugged'))
-
 Plug 'leafgarland/typescript-vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'ryanoasis/vim-devicons'
@@ -42,7 +39,6 @@ endif
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'mhinz/vim-startify'
 Plug 'dikiaap/minimalist'
@@ -463,9 +459,9 @@ endif
 
 
   " IndentLine
-  let g:indentLine_enabled = 1
+  let g:indentLine_enabled = 0
   let g:indentLine_concealcursor = 0
-  let g:indentLine_char = '┆'
+  let g:indentLine_char = '|'
   let g:indentLine_faster = 2
 
 setl nospell
@@ -521,7 +517,7 @@ nmap <M-Right> :vertical resize +8<CR>
 nmap <M-Left> :vertical resize -8<CR>
 nmap <M-Down> :resize +12<CR>
 nmap <M-Up> :resize -12<CR>
-nmap <S-r> :NERDTreeToggle<CR>
+nmap <S-r> :NERDTreeToggle<CR> 0 <CR>
 nmap <S-d> :NERDTreeFocus<CR>
 nmap <A-.> :tabnew<CR>
 nmap <A-'> :set scl=no<CR>
@@ -532,8 +528,9 @@ nmap <S-l> :BufferNext<CR>
 nmap <S-j> :BufferMovePrevious<CR>
 nmap <S-k> :BufferMoveNext<CR>
 nmap <TAB> :bnext<CR>
-nmap <S-q> :bd<CR>
-nnoremap <silent>    <A-C-l> :BufferClose <CR> :q <CR>
+nmap <S-TAB> :bprevious<CR>
+"nmap <S-q> :bd<CR> :q<CR>
+nnoremap <silent>    <S-q> :BufferClose <CR> :q <CR>
 cnoreabbrev n noh
 cnoreabbrev tree NERDTree
 cnoreabbrev t ter
@@ -725,7 +722,7 @@ set cursorline
 " These settings highlight a vertical cursor column:
 "set cursorcolumn
 highlight CursorColumn ctermfg=White ctermbg=Yellow cterm=bold guifg=white guibg=yellow gui=bold
-highlight CursorColumn ctermfg=Black ctermbg=Yellow cterm=bold guifg=Black guibg=yellow gui=NONE
+highlight CursorColumn ctermfg=White ctermbg=Yellow cterm=bold guifg=White guibg=yellow gui=NONE
 "signature.target": "echo"
 let g:airline_powerline_fonts = 1
 noremap <A-k> 42k
@@ -761,10 +758,10 @@ if exists('make')
 endif
 
 let g:lightline = { 'colorscheme': 'onedark' }
-let g:airline_theme='onedark'
+let g:airline_theme='transparent'
 
 set cursorline
-set cursorlineopt=number
+"set cursorlineopt=number
 set nocompatible
 syntax enable
 set background=dark
@@ -789,10 +786,8 @@ autocmd syntax *
 
 let NERDTreeDirArrowExpandable = "\u00a0"
 let NERDTreeDirArrowCollapsible = "\u00a0"
-autocmd VimEnter * set winfixwidth
-autocmd BufEnter * sign define dummy
-autocmd BufEnter * execute 'sign place 9999 line=1 name=dummy buffer=' . bufnr('')
 
+autocmd VimEnter * set winfixwidth
 set updatetime=10
 highlight SignColumn guibg=NONE
 
@@ -975,9 +970,6 @@ imap <c-space> <Plug>(asyncomplete_force_refresh)
 " For Vim 8 (<c-@> corresponds to <c-space>):
 " imap <c-@> <Plug>(asyncomplete_force_refresh)
 "
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-au VimEnter *  NERDTree
-autocmd VimEnter * NERDTree | wincmd p
 ":set signcolumn=yes
 hi Directory guifg=#a8d2eb guibg=NONE
 "set cursorline
@@ -985,6 +977,7 @@ hi Directory guifg=#a8d2eb guibg=NONE
 nnoremap ,. daw
 nnoremap . caw
 nnoremap <S-A-q> :qall<CR>
+nnoremap <S-A-m> :wqall<CR>
 
 :resize
 :hi TabLineFill term=bold cterm=bold ctermbg=0
@@ -996,23 +989,26 @@ augroup filetype_nerdtree
     au FileType nerdtree call s:disable_lightline_on_nerdtree()
     au BufWinEnter,TabEnter * call s:disable_lightline_on_nerdtree()
 augroup END
+
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+autocmd VimEnter * NERDTree | wincmd p
+au VimEnter * NERDTreeToggle
 fu s:disable_lightline_on_nerdtree() abort
    let nerdtree_winnr = index(map(range(1, winnr('$')), {_,v -> getbufvar(winbufnr(v), '&ft')}), 'nerdtree') + 1
     call timer_start(0, {-> nerdtree_winnr && setwinvar(nerdtree_winnr, '&stl', '%#Normal#')})
 endfu
 
 set number
-set title
-set showmatch
-set hlsearch
-set autoindent
-set smartindent
 
 :set wrap linebreak
-let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
-let g:WebDevIconsUnicodeDecorateFolderNodes = v:true
-let g:NERDTreeDirArrowExpandable = "\u00a0"
-let g:NERDTreeDirArrowCollapsible = "\u00a0"
+set cursorline
+hi cursorline cterm=none term=none
+autocmd WinEnter * setlocal cursorline
+autocmd WinLeave * setlocal nocursorline
+highlight CursorLine guibg=#222222 ctermbg=335
+
+set signcolumn=number
+set signcolumn=yes
 lua << EOF
 require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
 
