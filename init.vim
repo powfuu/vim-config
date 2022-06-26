@@ -1,6 +1,5 @@
 " vim-bootstrap 2022-03-21 17:36:32
-"*****************************************************************************
-"" Vim-Plug core
+"***************************************************************************** "" Vim-Plug core
 "*****************************************************************************
 let vimplug_exists=expand('~/./autoload/plug.vim')
 if has('win32')&&!has('win64')
@@ -147,6 +146,8 @@ set tabstop=3
 set softtabstop=3
 set shiftwidth=3
 set expandtab
+
+
 
 "" Map leader to ,
 let mapleader=','
@@ -396,10 +397,6 @@ noremap <leader>c :bd<CR>
 nnoremap <silent> <leader><space> :noh<cr>
 
 "" Switching windows
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
 
 "" Vmap for maintain Visual Mode after shifting > and <
 vmap < <gv
@@ -537,10 +534,10 @@ set relativenumber
 "nmap <M-Left> :call animate#window_delta_width(-8)<CR>
 "nmap <M-Down> :call animate#window_delta_width(12)<CR>
 "nmap <M-Up> :call animate#window_delta_width(-12)<CR>
-nmap <A-l> :call animate#window_delta_width(8)<CR>
-nmap <A-h> :call animate#window_delta_width(-8)<CR>
-nmap <A-j> :call animate#window_delta_width(12)<CR>
-nmap <A-k> :call animate#window_delta_width(-12)<CR>
+nmap <A-l> :call animate#window_delta_width(12)<CR>
+nmap <A-h> :call animate#window_delta_width(-12)<CR>
+nmap <A-Up> :call animate#window_delta_height(-8)<CR>
+nmap <A-Down> :call animate#window_delta_height(8)<CR>
 nmap <S-r> :NERDTreeToggle<CR> :vertical resize 35 <CR>
 nmap <S-d> :NERDTreeFocus<CR> :vertical resize 35 <CR>
 nmap <A-.> :tabnew<CR>
@@ -557,13 +554,12 @@ nmap <S-TAB> :bprevious<CR>
 nnoremap <S-q> :BufferClose <CR> :q <CR> :vsplit <CR> :BufferNext<CR>
 nnoremap <S-w> :bd <CR> 
 nnoremap <A-c> :FloatermToggle<CR>
-cnoreabbrev n noh
 cnoreabbrev tree NERDTree
 cnoreabbrev t ter
+cnoreabbrev n noh
 cnoreabbrev s split
 cnoreabbrev d vsplit
-nnoremap <C-j> 10<C-e>
-nnoremap <C-k> 10<C-y>
+
 nmap <S-A-l> :vsplit<CR>
 nmap <S-A-k> :split<CR>
 nnoremap f <cmd>Telescope find_files<CR>
@@ -768,7 +764,7 @@ set guicursor+=i:blinkwait10
 
 
 
-let NERDTreeMinimalUI=2
+let NERDTreeMinimalUI=1
   tnoremap <Esc> <C-\><C-n>
   tnoremap <M-[> <Esc>
   tnoremap <C-v><Esc> <Esc>
@@ -1036,7 +1032,7 @@ set cursorline
 hi cursorline cterm=none term=none
 autocmd WinEnter * setlocal cursorline
 autocmd WinLeave * setlocal nocursorline
-highlight CursorLine guibg=#222222 ctermbg=335
+highlight CursorLine guibg=#2a2c3f ctermbg=335
 
 set signcolumn=number
 set signcolumn=yes
@@ -1046,6 +1042,8 @@ autocmd VimEnter * set winfixwidth
 
 
 autocmd BufEnter NERD_tree_* let g:NERDTreeWinSize = 35
+autocmd BufEnter NERD_tree_* :2
+
 
 hi TabLine    gui=NONE guibg=#3e4452 guifg=#abb2bf    cterm=NONE term=NONE ctermfg=black ctermbg=white
 augroup BgHighlight
@@ -1082,13 +1080,13 @@ let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
-augroup showLine
-    autocmd!
-    autocmd WinEnter * set cursorline
-    autocmd WinLeave * set nocursorline
-augroup END
+"TODO: MODERN THEME VIM
+highlight LineNr guifg=#535f98
+hi CursorLineNr guifg=#73c1a9
+hi TabLineSel guifg=#9ea3c0 ctermfg=235 guibg=#2a2c3f ctermbg=104 gui=bold cterm=bold
+hi Comment guifg=#8085a6 ctermfg=60 gui=NONE cterm=NONE
+
+    let g:NERDTreeQuitOnOpen=0
 
 lua << EOF
 require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
-
-
