@@ -1053,6 +1053,12 @@ augroup BgHighlight
     autocmd WinEnter * set relativenumber
     autocmd WinLeave * set norelativenumber
 augroup END
+
+augroup showLine
+    autocmd!
+    autocmd WinEnter * set cursorline
+    autocmd WinLeave * set nocursorline
+augroup END
 lua << EOF
 require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
 
