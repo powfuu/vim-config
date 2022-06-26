@@ -25,6 +25,20 @@ if !filereadable(vimplug_exists)
 endif
 
 call plug#begin(expand('~/.vim/plugged'))
+"THEMES
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'camspiers/animate.vim'
+Plug 'wadackel/vim-dogrun'
+Plug 'arcticicestudio/nord-vim'
+Plug 'bluz71/vim-nightfly-guicolors'
+Plug 'voldikss/vim-floaterm'
+Plug 'haishanh/night-owl.vim'
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'gilgigilgil/anderson.vim'
+
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
 Plug 'leafgarland/typescript-vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'ryanoasis/vim-devicons'
@@ -100,7 +114,13 @@ call plug#end()
 syntax on
 set t_Co=256
 
-colorscheme onedark
+
+let NERDTreeShowLineNumbers=1
+syntax on
+colorscheme dogrun
+
+" vim: set fdl=0 fdm=marker:
+let g:aquarium_style="dark"
 
 let g:vscode_style = "dark"
 let g:vscode_transparency = 1
@@ -230,7 +250,7 @@ let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
 let g:NERDTreeShowBookmarks=0
 let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 40
+let g:NERDTreeWinSize = 35
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/
 
 " grep.vim
@@ -513,12 +533,16 @@ set relativenumber
 " Add > at current position without closing the current tag, default is ''
 "
 
-nmap <M-Right> :vertical resize +8<CR>
-nmap <M-Left> :vertical resize -8<CR>
-nmap <M-Down> :resize +12<CR>
-nmap <M-Up> :resize -12<CR>
-nmap <S-r> :NERDTreeToggle<CR> 0 <CR>
-nmap <S-d> :NERDTreeFocus<CR>
+"nmap <M-Right> :call animate#window_delta_width(8)<CR>
+"nmap <M-Left> :call animate#window_delta_width(-8)<CR>
+"nmap <M-Down> :call animate#window_delta_width(12)<CR>
+"nmap <M-Up> :call animate#window_delta_width(-12)<CR>
+nmap <A-l> :call animate#window_delta_width(8)<CR>
+nmap <A-h> :call animate#window_delta_width(-8)<CR>
+nmap <A-j> :call animate#window_delta_width(12)<CR>
+nmap <A-k> :call animate#window_delta_width(-12)<CR>
+nmap <S-r> :NERDTreeToggle<CR> :vertical resize 35 <CR>
+nmap <S-d> :NERDTreeFocus<CR> :vertical resize 35 <CR>
 nmap <A-.> :tabnew<CR>
 nmap <A-'> :set scl=no<CR>
 nmap <A-;> :set scl=yes<CR>
@@ -530,7 +554,9 @@ nmap <S-k> :BufferMoveNext<CR>
 nmap <TAB> :bnext<CR>
 nmap <S-TAB> :bprevious<CR>
 "nmap <S-q> :bd<CR> :q<CR>
-nnoremap <silent>    <S-q> :BufferClose <CR> :q <CR>
+nnoremap <S-q> :BufferClose <CR> :q <CR> :vsplit <CR> :BufferNext<CR>
+nnoremap <S-w> :bd <CR> 
+nnoremap <A-c> :FloatermToggle<CR>
 cnoreabbrev n noh
 cnoreabbrev tree NERDTree
 cnoreabbrev t ter
@@ -542,6 +568,10 @@ nmap <S-A-l> :vsplit<CR>
 nmap <S-A-k> :split<CR>
 nnoremap f <cmd>Telescope find_files<CR>
 cnoreabbrev f <cmd>Telescope find_files hidden=true<CR>
+
+let g:floaterm_title = ""
+let g:floaterm_position = "right"
+"let g:floaterm_borderchars = ""
 
 set encoding=UTF-8
 nnoremap <c-s> :w<CR>
@@ -738,7 +768,7 @@ set guicursor+=i:blinkwait10
 
 
 
-let NERDTreeMinimalUI=1
+let NERDTreeMinimalUI=2
   tnoremap <Esc> <C-\><C-n>
   tnoremap <M-[> <Esc>
   tnoremap <C-v><Esc> <Esc>
@@ -790,9 +820,9 @@ let NERDTreeDirArrowCollapsible = "\u00a0"
 autocmd VimEnter * set winfixwidth
 set updatetime=10
 highlight SignColumn guibg=NONE
-
-hi Normal guibg=NONE ctermbg=NONE
-autocmd ColorScheme * highlight! link SignColumn LineNr
+"transparency transparent background opacity
+"hi Normal guibg=NONE ctermbg=NONE
+"autocmd ColorScheme * highlight! link SignColumn LineNr
 
 " Use deoplete.
 
@@ -971,7 +1001,8 @@ imap <c-space> <Plug>(asyncomplete_force_refresh)
 " imap <c-@> <Plug>(asyncomplete_force_refresh)
 "
 ":set signcolumn=yes
-hi Directory guifg=#a8d2eb guibg=NONE
+hi Directory guifg=#b1c5eb guibg=NONE
+"#a8d2eb
 "set cursorline
 
 nnoremap ,. daw
@@ -980,7 +1011,7 @@ nnoremap <S-A-q> :qall<CR>
 nnoremap <S-A-m> :wqall<CR>
 
 :resize
-:hi TabLineFill term=bold cterm=bold ctermbg=0
+hi TabLineFill term=bold cterm=bold ctermbg=0
 highlight clear StatusLine
 
 "HIDE NERD TREE STATUS BAR <<< BOTTOM
@@ -1009,6 +1040,20 @@ highlight CursorLine guibg=#222222 ctermbg=335
 
 set signcolumn=number
 set signcolumn=yes
+
+set winfixwidth
+autocmd VimEnter * set winfixwidth
+
+
+autocmd BufEnter NERD_tree_* let g:NERDTreeWinSize = 35
+
+hi TabLine    gui=NONE guibg=#3e4452 guifg=#abb2bf    cterm=NONE term=NONE ctermfg=black ctermbg=white
+augroup BgHighlight
+    autocmd!
+    autocmd WinEnter * set relativenumber
+    autocmd WinLeave * set norelativenumber
+augroup END
 lua << EOF
 require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
+
 
