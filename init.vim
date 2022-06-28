@@ -1,6 +1,3 @@
-" vim-bootstrap 2022-03-21 17:36:32
-"***************************************************************************** "" Vim-Plug core
-"*****************************************************************************
 let vimplug_exists=expand('~/./autoload/plug.vim')
 if has('win32')&&!has('win64')
   let curl_exists=expand('C:\Windows\Sysnative\curl.exe')
@@ -8,9 +5,7 @@ else
   let curl_exists=expand('curl')
 endif
 let g:vim_bootstrap_langs = "html,javascript"
-let g:vim_bootstrap_editor = ""				" nvim or vim
-let g:vim_bootstrap_theme = "molokai"
-let g:vim_bootstrap_frams = ""
+let g:vim_bootstrap_editor = "nvim"				" nvim or vim
 
 if !filereadable(vimplug_exists)
   if !executable(curl_exists)
@@ -20,11 +15,9 @@ if !filereadable(vimplug_exists)
   echo ""
   silent exec "!"curl_exists" -fLo " . shellescape(vimplug_exists) . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
   let g:not_finish_vimplug = "yes"
-
 endif
 
 call plug#begin(expand('~/.vim/plugged'))
-"THEMES
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'camspiers/animate.vim'
 Plug 'wadackel/vim-dogrun'
@@ -35,13 +28,10 @@ Plug 'haishanh/night-owl.vim'
 Plug 'ghifarit53/tokyonight-vim'
 Plug 'drewtempelmeyer/palenight.vim'
 Plug 'gilgigilgil/anderson.vim'
-
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-
 Plug 'leafgarland/typescript-vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'ryanoasis/vim-devicons'
-
 if has('nvim')
   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -50,13 +40,11 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'mhinz/vim-startify'
 Plug 'dikiaap/minimalist'
 Plug 'andymass/vim-matchup'
-Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'romgrk/barbar.nvim'
@@ -69,9 +57,8 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'easymotion/vim-easymotion'
 Plug 'yggdroot/indentline'
-Plug 'scrooloose/nerdtree'
+Plug 'easymotion/vim-easymotion'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/grep.vim'
@@ -79,15 +66,7 @@ Plug 'vim-scripts/CSApprox'
 Plug 'Raimondi/delimitMate'
 Plug 'majutsushi/tagbar'
 Plug 'dense-analysis/ale'
-Plug 'Yggdroot/indentLine'
-Plug 'jiangmiao/auto-pairs'
-Plug 'benmills/vimux'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'yggdroot/indentline'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Shougo/vimproc.vim'
-Plug 'pangloss/vim-javascript'
-  Plug 'mxw/vim-jsx'
 Plug 'jiangmiao/auto-pairs' 
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
@@ -100,10 +79,9 @@ Plug 'joshdick/onedark.vim'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'yuezk/vim-js'
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'mlaursen/vim-react-snippets'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 if isdirectory('/usr/local/opt/fzf')
   Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 else
@@ -111,51 +89,21 @@ else
   Plug 'junegunn/fzf.vim'
 endif
 call plug#end()
+
 syntax on
-set t_Co=256
-
-
 let NERDTreeShowLineNumbers=1
-syntax on
+set t_Co=256
 colorscheme dogrun
-
-" vim: set fdl=0 fdm=marker:
-let g:aquarium_style="dark"
-
-let g:vscode_style = "dark"
-let g:vscode_transparency = 1
-let g:vscode_italic_comment = 1
-let g:vscode_disable_nvimtree_bg = v:true
-
 set termguicolors
-
 set encoding=UTF-8
-"linea de arriba es spara agregar transparencia: hi Normal guibg=NONE ctermbg=NONE"****************************************************************************
-"" Basic Setup
-"*****************************************************************************"
-"" Encoding
-set encoding=utf-8
-set fileencoding=utf-8
 set fileencodings=utf-8
 set ttyfast
-"" Fix backspace indent
 set backspace=indent,eol,start
-
-"" Tabs. May be overridden by autocmd rules
-set tabstop=3
-set softtabstop=3
-set shiftwidth=3
 set expandtab
-
-
-
-"" Map leader to ,
 let mapleader=','
-
-"" Enable hidden buffers
 set hidden
 
-"" Searching
+" Searching
 set hlsearch
 set incsearch
 set ignorecase
@@ -163,58 +111,17 @@ set smartcase
 
 set fileformats=unix,dos,mac
 
-
-" session management
-let g:session_directory = "~/./session"
-let g:session_autoload = "no"
-let g:session_autosave = "no"
-let g:session_command_aliases = 1
-
-"*****************************************************************************
-"" Visual Settings
-"*****************************************************************************
 set ruler
-
 let no_buffers_menu=1
 
-
-" Better command line completion 
 set wildmenu
 
-" mouse support
+" Mouse support
 set mouse=a
-
 set mousemodel=popup
-set t_Co=256
 
 set guioptions=egmrti
 set gfn=Monospace\ 10
-
-if has("gui_running")
-  if has("gui_mac") || has("gui_macvim")
-    set transparency=8
-  endif
-else
-  let g:CSApprox_loaded = 1
-
-
-
-  
-  if $COLORTERM == 'gnome-terminal'
-    set term=gnome-256color
-  else
-    if $TERM == 'xterm'
-      set term=xterm-256color
-    endif
-  endif
-  
-endif
-
-
-if &term =~ '256color'
-  set t_ut=
-endif
-
 
 "" Disable the blinking cursor.
 set gcr=a:blinkon0
@@ -236,8 +143,8 @@ set titlestring=%F
 
 " Search mappings: These will make it so that going to the next one in a
 " search will center on the line it's found in.
-nnoremap n nzzzv
-nnoremap N Nzzzv
+nnoremap <silent> n nzzzv
+nnoremap <silent> N Nzzzv
 
 
 vmap <C-x> "+y
@@ -260,7 +167,7 @@ let Grep_Skip_Files = '*.log *.db'
 let Grep_Skip_Dirs = '.git node_modules'
 
 " terminal emulation
-nnoremap <silent> <leader>sh :terminal<CR>
+nnoremap <silent>  <leader>sh :terminal<CR>
 
 
 "*****************************************************************************
@@ -316,7 +223,7 @@ noremap <Leader>v :<C-u>vsplit<CR>
 
 
 
-nnoremap <silent> <S-t> :tabnew<CR>
+nnoremap <silent>  <S-t> :tabnew<CR>
 
 "" Set working directory
 
@@ -345,10 +252,10 @@ if executable('rg')
 endif
 
 cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>e :FZF -m<CR>
+nnoremap <silent>  <leader>b :Buffers<CR>
+nnoremap <silent>  <leader>e :FZF -m<CR>
 "Recovery commands from history through FZF
-nmap <leader>y :History:<CR>
+nmap <silent> <leader>y :History:<CR>
 
 " snippets
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -358,10 +265,6 @@ let g:UltiSnipsEditSplit="vertical"
 
 " ale
 let g:ale_linters = {}
-
-" Tagbar
-nmap <silent> <F4> :TagbarToggle<CR>
-let g:tagbar_autofocus = 1
 
 " Disable visualbell
 set noerrorbells visualbell t_vb=
@@ -394,7 +297,7 @@ noremap <leader>w :bn<CR>
 noremap <leader>c :bd<CR>
 
 "" Clean search (highlight)
-nnoremap <silent> <leader><space> :noh<cr>
+nnoremap <silent>  <leader><space> :noh<cr>
 
 "" Switching windows
 
@@ -434,6 +337,7 @@ if filereadable(expand("~/.rc.local"))
   source ~/.rc.local
 endif
 
+au BufRead,BufEnter,BufNewFile * IndentLinesReset
 
 "*****************************************************************************
 "" Convenience variables
@@ -441,6 +345,8 @@ endif
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+  
+  let g:session_autoload='no'
 
 if !exists('g:airline_powerline_fonts')
   let g:airline#extensions#tabline#left_sep = ' '
@@ -476,9 +382,13 @@ endif
 
 
   " IndentLine
+let g:indentLine_color_term = 239
+let g:indentLine_color_gui = '#333333'
+
+let g:indentLine_char = 'c'
   let g:indentLine_enabled = 0
   let g:indentLine_concealcursor = 0
-  let g:indentLine_char = '|'
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
   let g:indentLine_faster = 2
 
 setl nospell
@@ -486,7 +396,6 @@ setl nowrap
 setl tabstop=4
 setl shiftwidth=4
 setl smartindent
-setl expandtab
 let b:vcm_tab_complete = 'javascript'
 let b:javascript_fold = 1
 let g:javascript_plugin_jsdoc = 1
@@ -530,60 +439,57 @@ set relativenumber
 " Add > at current position without closing the current tag, default is ''
 "
 
-"nmap <M-Right> :call animate#window_delta_width(8)<CR>
-"nmap <M-Left> :call animate#window_delta_width(-8)<CR>
-"nmap <M-Down> :call animate#window_delta_width(12)<CR>
-"nmap <M-Up> :call animate#window_delta_width(-12)<CR>
-nmap <A-l> :call animate#window_delta_width(12)<CR>
-nmap <A-h> :call animate#window_delta_width(-12)<CR>
-nmap <A-Up> :call animate#window_delta_height(-8)<CR>
-nmap <A-Down> :call animate#window_delta_height(8)<CR>
-nmap <S-r> :NERDTreeToggle<CR> :vertical resize 35 <CR>
-nmap <S-d> :NERDTreeFocus<CR> :vertical resize 35 <CR>
-nmap <A-.> :tabnew<CR>
-nmap <A-'> :set scl=no<CR>
-nmap <A-;> :set scl=yes<CR>
-nmap <A-m> :w <CR>
-nmap <S-h> :BufferPrevious<CR>
-nmap <S-l> :BufferNext<CR>
-nmap <S-j> :BufferMovePrevious<CR>
-nmap <S-k> :BufferMoveNext<CR>
-nmap <TAB> :bnext<CR>
-nmap <S-TAB> :bprevious<CR>
-"nmap <S-q> :bd<CR> :q<CR>
-nnoremap <S-q> :BufferClose <CR> :q <CR> :vsplit <CR> :BufferNext<CR>
-nnoremap <S-w> :bd <CR> 
-nnoremap <A-c> :FloatermToggle<CR>
+"nmap <silent> <M-Right> :call animate#window_delta_width(8)<CR>
+"nmap <silent> <M-Left> :call animate#window_delta_width(-8)<CR>
+"nmap <silent> <M-Down> :call animate#window_delta_width(12)<CR>
+"nmap <silent> <M-Up> :call animate#window_delta_width(-12)<CR>
+nmap <silent> <A-l> :call animate#window_delta_width(12)<CR>
+nmap <silent> <A-h> :call animate#window_delta_width(-12)<CR>
+nmap <silent> <A-Up> :call animate#window_delta_height(-8)<CR>
+nmap <silent> <A-Down> :call animate#window_delta_height(8)<CR>
+nmap <silent> <S-r> :NERDTreeToggle :NERDTreeFocus <CR> 
+nmap <silent> <S-d> :NERDTreeFocus<CR> :vertical resize 35 <CR>
+nmap <silent> <A-.> :tabnew<CR>
+nmap <silent> <A-'> :set scl=no<CR>
+nmap <silent> <A-;> :set scl=yes<CR>
+nmap <silent> <A-m> :w <CR>
+nmap <silent> <S-h> :BufferPrevious<CR>
+nmap <silent> <S-l> :BufferNext<CR>
+nmap <silent> <S-j> :BufferMovePrevious<CR>
+nmap <silent> <S-k> :BufferMoveNext<CR>
+nmap <silent> <TAB> :bnext<CR>
+nmap <silent> <S-TAB> :bprevious<CR>
+"nmap <silent> <S-q> :bd<CR> :q<CR>
+nnoremap <silent> <S-q> :BufferClose <CR> :q <CR> :vsplit <CR> :BufferNext<CR>
+nnoremap <silent> <S-w> :q <CR> :bd <CR>
+nnoremap <silent> <A-c> :FloatermToggle<CR>
+nmap <silent><S-m> :mks!<CR>
 cnoreabbrev tree NERDTree
 cnoreabbrev t ter
 cnoreabbrev n noh
 cnoreabbrev s split
 cnoreabbrev d vsplit
 
-nmap <S-A-l> :vsplit<CR>
-nmap <S-A-k> :split<CR>
-nnoremap f <cmd>Telescope find_files<CR>
+nmap <silent> <S-A-l> :vsplit<CR>
+nmap <silent> <S-A-k> :split<CR>
+nnoremap <silent> f <cmd>Telescope find_files<CR>
 cnoreabbrev f <cmd>Telescope find_files hidden=true<CR>
 
 let g:floaterm_title = ""
 let g:floaterm_position = "right"
 "let g:floaterm_borderchars = ""
 
-set encoding=UTF-8
-nnoremap <c-s> :w<CR>
-nnoremap <c-s> <Esc>:w<CR>
+nnoremap <silent> <c-s> :w<CR>
+nnoremap <silent> <c-s> <Esc>:w<CR>
 set numberwidth=1
 " presiona tab para autocompletar
 
 
-inoremap ><Tab> ><Esc>F<lyt>o</<C-r>"><Esc>O<Space>
+inoremap <silent> ><Tab> ><Esc>F<lyt>o</<C-r>"><Esc>O<Space>
 
 
 
 " unicode characters in the file autoload/float.vim
-set encoding=utf-8
-" TextEdit might fail if hidden is not set.
-set hidden
 
 " Some servers have issues with backup files, see #649
 set nobackup
@@ -610,11 +516,11 @@ endif
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
+inoremap <silent> <expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent> <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -623,37 +529,37 @@ endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <silent> <expr> <c-space> coc#refresh()
 else
-  inoremap <silent><expr> <c-@> coc#refresh()
+  inoremap <silent> <expr> <c-@> coc#refresh()
 endif
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+inoremap <silent> <expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent>  [g <Plug>(coc-diagnostic-prev)
+nmap <silent>  ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent>  gd <Plug>(coc-definition)
+nmap <silent>  gy <Plug>(coc-type-definition)
+nmap <silent>  gi <Plug>(coc-implementation)
+nmap <silent>  gr <Plug>(coc-references)
 
 
 " Highlight the symbol and its references when holding the cursor.
 "autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+nmap <silent> <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+nmap <silent> <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -666,15 +572,15 @@ augroup end
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <silent> <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <silent> <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <silent> <leader>qf  <Plug>(coc-fix-current)
 
 " Run the Code Lens action on the current line.
-nmap <leader>cl  <Plug>(coc-codelens-action)
+nmap <silent> <leader>cl  <Plug>(coc-codelens-action)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -689,17 +595,17 @@ omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  nnoremap <silent> <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent> <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent> <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent> <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
+nmap <silent>  <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
@@ -735,7 +641,6 @@ augroup vimrc_autocmd
 
 augroup END
 set lazyredraw
-set ttyfast
 
 
 " Enables cursor line position tracking:
@@ -794,7 +699,6 @@ set background=dark
 highlight Cursor guifg=#84F8CC guibg=#84F8CC
 set scl=no
 
-syntax on
 
 
 
@@ -822,12 +726,6 @@ highlight SignColumn guibg=NONE
 
 " Use deoplete.
 
-" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
-" unicode characters in the file autoload/float.vim
-set encoding=utf-8
-
-" TextEdit might fail if hidden is not set.
-set hidden
 
 " Some servers have issues with backup files, see #649.
 set nobackup
@@ -855,11 +753,11 @@ endif
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
+inoremap <silent> <expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent> <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -868,29 +766,29 @@ endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <silent> <expr> <c-space> coc#refresh()
 else
-  inoremap <silent><expr> <c-@> coc#refresh()
+  inoremap <silent> <expr> <c-@> coc#refresh()
 endif
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+inoremap <silent> <expr> <cr> pumvisible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <silent>  [g <Plug>(coc-diagnostic-prev)
+nmap <silent>  ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent>  gd <Plug>(coc-definition)
+nmap <silent>  gy <Plug>(coc-type-definition)
+nmap <silent>  gi <Plug>(coc-implementation)
+nmap <silent>  gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent>  K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if CocAction('hasProvider', 'hover')
@@ -904,11 +802,11 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
+nmap <silent> <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+nmap <silent> <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -921,15 +819,15 @@ augroup end
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
 xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <silent> <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
+nmap <silent> <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <silent> <leader>qf  <Plug>(coc-fix-current)
 
 " Run the Code Lens action on the current line.
-nmap <leader>cl  <Plug>(coc-codelens-action)
+nmap <silent> <leader>cl  <Plug>(coc-codelens-action)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -944,17 +842,17 @@ omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
 if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  nnoremap <silent> <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent> <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent> <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent> <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
   vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
   vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 endif
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
+nmap <silent>  <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
@@ -973,25 +871,25 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent> <nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <nowait> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent> <nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <nowait> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent> <nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent> <nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <nowait> <space>p  :<C-u>CocListResume<CR>
 
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
+inoremap <silent> <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <silent> <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 " For Vim 8 (<c-@> corresponds to <c-space>):
 " imap <c-@> <Plug>(asyncomplete_force_refresh)
@@ -1001,16 +899,17 @@ hi Directory guifg=#b1c5eb guibg=NONE
 "#a8d2eb
 "set cursorline
 
-nnoremap ,. daw
-nnoremap . caw
-nnoremap <S-A-q> :qall<CR>
-nnoremap <S-A-m> :wqall<CR>
+nnoremap <silent> ,. daw
+nnoremap <silent> . caw
+nnoremap <silent> <S-A-q> :qall<CR>
+nnoremap <silent> <S-A-m> :wqall<CR>
 
 :resize
 hi TabLineFill term=bold cterm=bold ctermbg=0
 highlight clear StatusLine
 
 "HIDE NERD TREE STATUS BAR <<< BOTTOM
+
 augroup filetype_nerdtree
     au!
     au FileType nerdtree call s:disable_lightline_on_nerdtree()
@@ -1019,12 +918,13 @@ augroup END
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 autocmd VimEnter * NERDTree | wincmd p
+
+
 au VimEnter * NERDTreeToggle
 fu s:disable_lightline_on_nerdtree() abort
    let nerdtree_winnr = index(map(range(1, winnr('$')), {_,v -> getbufvar(winbufnr(v), '&ft')}), 'nerdtree') + 1
-    call timer_start(0, {-> nerdtree_winnr && setwinvar(nerdtree_winnr, '&stl', '%#Normal#')})
+   call timer_start(0, {-> nerdtree_winnr && setwinvar(nerdtree_winnr, '&stl', '%#Normal#')})
 endfu
-
 set number
 
 :set wrap linebreak
@@ -1037,20 +937,9 @@ highlight CursorLine guibg=#2a2c3f ctermbg=335
 set signcolumn=number
 set signcolumn=yes
 
-set winfixwidth
-autocmd VimEnter * set winfixwidth
-
-
 autocmd BufEnter NERD_tree_* let g:NERDTreeWinSize = 35
-autocmd BufEnter NERD_tree_* :2
-
 
 hi TabLine    gui=NONE guibg=#3e4452 guifg=#abb2bf    cterm=NONE term=NONE ctermfg=black ctermbg=white
-augroup BgHighlight
-    autocmd!
-    autocmd WinEnter * set relativenumber
-    autocmd WinLeave * set norelativenumber
-augroup END
 " air-line
 let g:airline_powerline_fonts = 1
 
@@ -1086,7 +975,7 @@ hi CursorLineNr guifg=#73c1a9
 hi TabLineSel guifg=#9ea3c0 ctermfg=235 guibg=#2a2c3f ctermbg=104 gui=bold cterm=bold
 hi Comment guifg=#8085a6 ctermfg=60 gui=NONE cterm=NONE
 
-    let g:NERDTreeQuitOnOpen=0
+let g:NERDTreeQuitOnOpen=0
 
 lua << EOF
 require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
