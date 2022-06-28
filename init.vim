@@ -57,7 +57,6 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'yggdroot/indentline'
 Plug 'easymotion/vim-easymotion'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -337,7 +336,6 @@ if filereadable(expand("~/.rc.local"))
   source ~/.rc.local
 endif
 
-au BufRead,BufEnter,BufNewFile * IndentLinesReset
 
 "*****************************************************************************
 "" Convenience variables
@@ -381,15 +379,6 @@ endif
 " VimScript
 
 
-  " IndentLine
-let g:indentLine_color_term = 239
-"let g:indentLine_color_gui = '#333333'
-
-let g:indentLine_char = 'c'
-  let g:indentLine_enabled = 0
-  let g:indentLine_concealcursor = 0
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
-  let g:indentLine_faster = 2
 
 setl nospell
 setl nowrap
