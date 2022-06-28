@@ -383,7 +383,7 @@ endif
 
   " IndentLine
 let g:indentLine_color_term = 239
-let g:indentLine_color_gui = '#333333'
+"let g:indentLine_color_gui = '#333333'
 
 let g:indentLine_char = 'c'
   let g:indentLine_enabled = 0
