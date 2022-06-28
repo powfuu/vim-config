@@ -720,6 +720,23 @@ let NERDTreeDirArrowCollapsible = "\u00a0"
 autocmd VimEnter * set winfixwidth
 set updatetime=10
 highlight SignColumn guibg=NONE
+function! HighlightWordUnderCursor()
+    let disabled_ft = ["qf", "fugitive", "nerdtree", "gundo", "diff", "fzf", "floaterm"]
+    if &diff || &buftype == "terminal" || index(disabled_ft, &filetype) >= 0
+        return
+    endif
+    if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]'
+        hi MatchWord cterm=undercurl gui=undercurl guibg=#3b404a
+        exec 'match' 'MatchWord' '/\V\<'.expand('<cword>').'\>/'
+    else
+        match none
+    endif
+endfunction
+
+augroup MatchWord
+  autocmd!
+  autocmd! CursorHold,CursorHoldI * call HighlightWordUnderCursor()
+augroup END
 "transparency transparent background opacity
 "hi Normal guibg=NONE ctermbg=NONE
 "autocmd ColorScheme * highlight! link SignColumn LineNr
@@ -736,7 +753,6 @@ set cmdheight=1
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=300
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -897,8 +913,10 @@ imap <c-space> <Plug>(asyncomplete_force_refresh)
 ":set signcolumn=yes
 hi Directory guifg=#b1c5eb guibg=NONE
 "#a8d2eb
-"set cursorline
+"
+" :TODO Occurrences IncSearch
 
+"set cursorline
 nnoremap <silent> ,. daw
 nnoremap <silent> . caw
 nnoremap <silent> <S-A-q> :qall<CR>
