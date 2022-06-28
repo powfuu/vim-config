@@ -726,7 +726,7 @@ function! HighlightWordUnderCursor()
         return
     endif
     if getline(".")[col(".")-1] !~# '[[:punct:][:blank:]]'
-        hi MatchWord cterm=undercurl gui=undercurl guibg=#3b404a
+      hi MatchWord cterm=undercurl gui=undercurl guibg=#3b404a
         exec 'match' 'MatchWord' '/\V\<'.expand('<cword>').'\>/'
     else
         match none
