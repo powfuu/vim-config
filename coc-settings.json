@@ -1,14 +1,14 @@
 {
   "signature.enable": false,
-  "javascript.autoClosingTags": true,
+  "javascript.autoClosingTags": false,
   "javascript.suggest.autoImports": true,
   "suggest.enablePreview": false,
-  "suggest.floatEnable": false,
+  "suggest.floatEnable": true,
   "suggest.triggerCompletionWait": 0,
   "suggest.maxCompleteItemCount": 10,
   "typescript.preferences.quoteStyle": "double",
   "javascript.preferences.quoteStyle": "double",
   "javascript.suggest.completeFunctionCalls": true,
    "tsserver.formatOnType": true,
-   "coc.preferences.formatOnType": true
+   "coc.preferences.formatOnType": true,
 }

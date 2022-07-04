@@ -8,9 +8,15 @@
 call plug#begin(expand('~/.vim/plugged'))
 "Animated Buffers
 Plug 'camspiers/animate.vim'
+Plug 'lewis6991/impatient.nvim'
+
+Plug 'alvan/vim-closetag'
+Plug 'airblade/vim-gitgutter'
+
 
 "Dark minimalist modern colorscheme
 Plug 'wadackel/vim-dogrun'
+
 
 "Soft Dark one dark theme
 Plug 'joshdick/onedark.vim'
@@ -39,6 +45,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'romgrk/barbar.nvim'
 
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+
 Plug 'sheerun/vim-polyglot'
 Plug 'scrooloose/nerdtree'
 
@@ -114,15 +121,15 @@ set mousemodel=popup
 
 set guioptions=egmrti
 set gfn=Monospace\ 10
-
 "" Disable the blinking cursor.
+
 set gcr=a:blinkon0
 
 set scrolloff=3
 
 
 "" Status bar
-set laststatus=0
+set laststatus=3
 
 "" Use modeline overrides
 set modeline
@@ -176,11 +183,17 @@ endif
 "" The PC is fast enough, do syntax highlight syncing from start unless 200 lines
 
 "" Remember cursor position
+
 augroup vimrc-remember-cursor-position
   autocmd!
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
+inoremap <silent> <expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <silent> <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 set autoread
 
 " snippets
@@ -277,7 +290,7 @@ let b:javascript_fold = 1
 let g:javascript_plugin_jsdoc = 1
 let g:jsx_ext_required = 0
 set ai
-let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier']  " list of CoC extensions needed
+let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tabnine', 'coc-eslint']  " list of CoC extensions needed
 
 set relativenumber
 
@@ -285,8 +298,8 @@ set relativenumber
 "nmap <silent> <M-Left> :call animate#window_delta_width(-8)<CR>
 "nmap <silent> <M-Down> :call animate#window_delta_width(12)<CR>
 "nmap <silent> <M-Up> :call animate#window_delta_width(-12)<CR>
-nmap <silent> <A-l> :call animate#window_delta_width(12)<CR>
-nmap <silent> <A-h> :call animate#window_delta_width(-12)<CR>
+nmap <silent> <A-l> :call animate#window_delta_width(-12)<CR>
+nmap <silent> <A-h> :call animate#window_delta_width(12)<CR>
 nmap <silent> <A-Up> :call animate#window_delta_height(-8)<CR>
 nmap <silent> <A-Down> :call animate#window_delta_height(8)<CR>
 nmap <silent> <S-r> :NERDTreeToggle :NERDTreeFocus <CR> 
@@ -301,8 +314,8 @@ nmap <silent> <S-j> :BufferMovePrevious<CR>
 nmap <silent> <S-k> :BufferMoveNext<CR>
 nmap <silent> <TAB> :bnext<CR>
 nmap <silent> <S-TAB> :bprevious<CR>
-nnoremap <silent> <S-q> :BufferClose <CR> :q <CR> :vsplit <CR> :BufferNext<CR>
-nnoremap <silent> <S-w> :q <CR> :bd <CR>
+nnoremap <silent> <S-q> :bw <CR> :vsplit <CR> :BufferNext<CR>
+nnoremap <silent> <S-w> :q <CR>
 nnoremap <silent> <A-c> :FloatermToggle<CR>
 nmap <silent><S-m> :mks!<CR>
 cnoreabbrev tree NERDTree
@@ -312,14 +325,15 @@ cnoreabbrev s split
 cnoreabbrev d vsplit
 nmap <silent> <S-A-l> :vsplit<CR>
 nmap <silent> <S-A-k> :split<CR>
-nnoremap <silent> f <cmd>Telescope find_files<CR>
-cnoreabbrev f <cmd>Telescope find_files hidden=true<CR>
+nnoremap <silent> f <cmd>Telescope find_files theme=ivy<CR>
+cnoreabbrev f <cmd>Telescope find_files hidden=true theme=ivy<CR>
 
 let g:floaterm_title = ""
 let g:floaterm_position = "center"
 "let g:floaterm_borderchars = ""
 
 set numberwidth=1
+
 
 inoremap <silent> ><Tab> ><Esc>F<lyt>o</<C-r>"><Esc>O<Space>
 
@@ -330,31 +344,6 @@ set cmdheight=1
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
-
-
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent> <expr> <c-space> coc#refresh()
-else
-  inoremap <silent> <expr> <c-@> coc#refresh()
-endif
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent> <expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent>  [g <Plug>(coc-diagnostic-prev)
-nmap <silent>  ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent>  gd <Plug>(coc-definition)
-nmap <silent>  gy <Plug>(coc-type-definition)
-nmap <silent>  gi <Plug>(coc-implementation)
-nmap <silent>  gr <Plug>(coc-references)
-
 
 " Highlight the symbol and its references when holding the cursor.
 "autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -374,59 +363,12 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <silent> <leader>a  <Plug>(coc-codeaction-selected)
 
-" Remap keys for applying codeAction to the current buffer.
-nmap <silent> <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <silent> <leader>qf  <Plug>(coc-fix-current)
-
-" Run the Code Lens action on the current line.
-nmap <silent> <leader>cl  <Plug>(coc-codelens-action)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent> <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent> <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent> <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent> <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
-
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-nmap <silent>  <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocActionAsync('format')
 
-" Add `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-" Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
 
 set re=1
 au CursorMoved
@@ -442,21 +384,10 @@ augroup vimrc_autocmd
   " Jump to the last position when reopening a file
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
-  " ...etc...
 
 augroup END
 set lazyredraw
-
-
-" Enables cursor line position tracking:
 set cursorline
-" Removes the underline causes by enabling cursorline:
-"highlight clear CursorLine
-" Sets the line numbering to red background:
-  
-
-" These settings highlight a vertical cursor column:
-"set cursorcolumn
 highlight CursorColumn ctermfg=White ctermbg=Yellow cterm=bold guifg=white guibg=yellow gui=bold
 highlight CursorColumn ctermfg=White ctermbg=Yellow cterm=bold guifg=White guibg=yellow gui=NONE
 "signature.target": "echo"
@@ -481,7 +412,6 @@ if exists('make')
         let g:make = 'make'
 endif
 
-let g:lightline = { 'colorscheme': 'onedark' }
 let g:airline_theme='transparent'
 
 set cursorline
@@ -499,7 +429,8 @@ autocmd syntax *
 let NERDTreeDirArrowExpandable = "\u00a0"
 let NERDTreeDirArrowCollapsible = "\u00a0"
 autocmd VimEnter * set winfixwidth
-set updatetime=10
+set updatetime=250
+nnoremap <ESC> :noh <CR>
 highlight SignColumn guibg=NONE
 function! HighlightWordUnderCursor()
     let disabled_ft = ["qf", "fugitive", "nerdtree", "gundo", "diff", "fzf", "floaterm"]
@@ -521,14 +452,6 @@ augroup END
 set nobackup
 set nowritebackup
 
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent> <expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <silent> <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -581,20 +504,6 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent> <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent> <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent> <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent> <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
-
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of language server.
-nmap <silent>  <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocActionAsync('format')
@@ -610,35 +519,9 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Mappings for CoCList
-" Show all diagnostics.
-nnoremap <silent> <nowait> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent> <nowait> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent> <nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <nowait> <space>p  :<C-u>CocListResume<CR>
-
-inoremap <silent> <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-imap <c-space> <Plug>(asyncomplete_force_refresh)
-" For Vim 8 (<c-@> corresponds to <c-space>):
-" imap <c-@> <Plug>(asyncomplete_force_refresh)
-"
-":set signcolumn=yes
-hi Directory guifg=#b1c5eb guibg=NONE
+hi Directory guifg=#a8d2eb guibg=NONE
 "#a8d2eb
 "
-
 "set cursorline
 nnoremap <silent> ,. daw
 nnoremap <silent> . caw
@@ -651,11 +534,6 @@ highlight clear StatusLine
 
 "HIDE NERD TREE STATUS BAR <<< BOTTOM
 
-augroup filetype_nerdtree
-    au!
-    au FileType nerdtree call s:disable_lightline_on_nerdtree()
-    au BufWinEnter,TabEnter * call s:disable_lightline_on_nerdtree()
-augroup END
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 autocmd VimEnter * NERDTree | wincmd p
@@ -711,7 +589,7 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 "TODO: MODERN THEME VIM
-highlight LineNr guifg=#535f98
+highlight LineNr guifg=#6a6c8f
 hi CursorLineNr guifg=#73c1a9
 hi TabLineSel guifg=#9ea3c0 ctermfg=235 guibg=#2a2c3f ctermbg=104 gui=bold cterm=bold
 hi Comment guifg=#8085a6 ctermfg=60 gui=NONE cterm=NONE
@@ -720,35 +598,6 @@ let g:NERDTreeQuitOnOpen=0
 
 
 filetype plugin indent on
-
-" File:         HTML AutoCloseTag.vim
-" Author:       Michael Sanders (msanders42 [at] gmail [dot] com)
-" Last Updated: April 7 2009
-" Version:      0.3
-" Description:  Automatically closes HTML tag once you finish typing it with >
-
-if exists('b:mapped_auto_closetag') || &cp | finish | endif
-let b:mapped_auto_closetag = 1
-
-ino <buffer> <silent> < <><left>
-ino <buffer> <silent> > <c-r>=<SID>CloseTag()<cr>
-ino <buffer> <expr> <cr> <SID>Return()
-
-if exists('s:did_auto_closetag') | finish | endif
-let s:did_auto_closetag = 1
-
-" Gets the current HTML tag by the cursor.
-fun s:GetCurrentTag()
-	return matchstr(matchstr(getline('.'),
-						\ '<\zs\(\w\|=\| \|''\|"\)*>\%'.col('.').'c'), '^\a*')
-endf
-
-" Cleanly return after autocompleting an html/xml tag.
-fun s:Return()
-	let tag = s:GetCurrentTag()
-	return tag != '' && match(getline('.'), '</'.tag.'>') > -1 ?
-				\ "\<cr>\<cr>\<up>" : "\<cr>"
-endf
 
 fun s:InComment()
 	return stridx(synIDattr(synID(line('.'), col('.')-1, 0), 'name'), 'omment') != -1
@@ -777,31 +626,97 @@ let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
 " Returns whether a closing tag has already been inserted.
-fun s:ClosingTag(tag)
-	return s:CountInPage('\c<'.a:tag.'.\{-}>') <= s:CountInPage('\c</'.a:tag.'>')
-endf
-
-" Automatically inserts closing tag after starting tag is typed
-fun s:CloseTag()
-	let line = getline('.')
-	let col = col('.')
-	if line[col-1] != '>' | return '>' | endif
-	let col += 1
-	call cursor(0, col)
-	" Don't autocomplete next to a word or another tag or if inside comment
-	if line[col] !~ '\w\|<\|>' && !s:InComment()
-		let tag = s:GetCurrentTag()
-		" Insert closing tag if tag is not self-closing and has not already
-		" been closed
-		if tag != '' && tag !~ '\vimg|input|link|meta|br|hr|area|base|param|dd|dt'
-					\ && !s:ClosingTag(tag)
-			let line = substitute(line, '\%'.col.'c', '</'.escape(tag, '/').'>', '')
-			call setline('.', line)
-			call cursor(0, col)
-		endif
-	endif
-	return ''
-endf
 lua << EOF
 require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
+require('impatient')
+require'impatient'.enable_profile()
+_G.__luacache_config = {
+  chunks = {
+    enable = true,
+    path = vim.fn.stdpath('cache')..'/luacache_chunks',
+  },
+  modpaths = {
+    enable = true,
+    path = vim.fn.stdpath('cache')..'/luacache_modpaths',
+  }
+}
+require('impatient')
+
 EOF
+
+
+
+
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml, *.js'
+
+
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,xhtml,phtml'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
+
+" dict
+" Disables auto-close if not in a "valid" region (based on filetype)
+"
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ 'typescriptreact': 'jsxRegion,tsxRegion',
+    \ 'javascriptreact': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = '>>'
+
+" Add > at current position without closing the current tag, default is ''
+"
+let g:closetag_close_shortcut = '<leader>>'
+
+
+":set fillchars+=vert:\ 
+:hi TabLineFill guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+":let g:airline_statusline_ontop=1
+
+" NOTE: If barbar's option dict isn't created yet, create it
+let bufferline = get(g:, 'bufferline', {})
+
+" Enable/disable animations
+let bufferline.animation = v:true
+
+" Enable/disable close button
+let bufferline.closable = v:false
+" Sets the icon's highlight group.
+" If false, will use nvim-web-devicons colors
+let bufferline.icon_custom_colors = v:false
+
+" Configure icons on the bufferline.
+let bufferline.icon_separator_active = '   ●'
+let bufferline.icon_separator_inactive = ''
+let bufferline.icon_close_tab = ''
+let bufferline.icon_close_tab_modified = '●'
+let bufferline.icon_pinned = '車'
+
+" If true, new buffers will be inserted at the start/end of the list.
+" Default is to insert after current buffer.
+let bufferline.insert_at_end = v:true
+" Sets the maximum padding width with which to surround each tab.
+let bufferline.maximum_padding = 3
