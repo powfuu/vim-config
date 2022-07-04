@@ -1,6 +1,0 @@
-root = true
-
-[*.vim]
-tab_width = 4
-indent_style = tab
-indent_size = tab

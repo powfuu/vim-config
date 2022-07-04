@@ -1,92 +1,85 @@
-let vimplug_exists=expand('~/./autoload/plug.vim')
-if has('win32')&&!has('win64')
-  let curl_exists=expand('C:\Windows\Sysnative\curl.exe')
-else
-  let curl_exists=expand('curl')
-endif
-let g:vim_bootstrap_langs = "html,javascript"
-let g:vim_bootstrap_editor = "nvim"				" nvim or vim
-
-if !filereadable(vimplug_exists)
-  if !executable(curl_exists)
-    echoerr "You have to install curl or first install vim-plug yourself!" execute "q!"
-  endif
-  echo "Installing Vim-Plug..."
-  echo ""
-  silent exec "!"curl_exists" -fLo " . shellescape(vimplug_exists) . " --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-  let g:not_finish_vimplug = "yes"
-endif
+"		============= EVERIT MOLERO NVIM PLUGINS ============
+"		Web Development
+"		Android Development
+"		Database Development
+"		Syntax & Colorschemes
+"		Nvim Complete Setup
 
 call plug#begin(expand('~/.vim/plugged'))
-Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+"Animated Buffers
 Plug 'camspiers/animate.vim'
+
+"Dark minimalist modern colorscheme
 Plug 'wadackel/vim-dogrun'
-Plug 'arcticicestudio/nord-vim'
-Plug 'bluz71/vim-nightfly-guicolors'
+
+"Soft Dark one dark theme
+Plug 'joshdick/onedark.vim'
+
+"Float Term inside nvim
 Plug 'voldikss/vim-floaterm'
-Plug 'haishanh/night-owl.vim'
-Plug 'ghifarit53/tokyonight-vim'
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'gilgigilgil/anderson.vim'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'leafgarland/typescript-vim'
-Plug 'prabirshrestha/asyncomplete.vim'
+
+"Icons for vim
 Plug 'ryanoasis/vim-devicons'
-if has('nvim')
-  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/defx.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+Plug 'kyazdani42/nvim-web-devicons'
+
 Plug 'pangloss/vim-javascript'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'maxmellon/vim-jsx-pretty'
+
+"Initial Screen
 Plug 'mhinz/vim-startify'
-Plug 'dikiaap/minimalist'
+
+"Navigate between matchups
 Plug 'andymass/vim-matchup'
+
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'kyazdani42/nvim-web-devicons'
+
+"top bar
 Plug 'romgrk/barbar.nvim'
+
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'sheerun/vim-polyglot'
-Plug 'mxw/vim-jsx'
 Plug 'scrooloose/nerdtree'
+
+"navigation between buffers
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
+
+"Coc Plugin
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+
+"Fast movement between words & lines
 Plug 'easymotion/vim-easymotion'
+
+"bottom line plugin
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/grep.vim'
-Plug 'vim-scripts/CSApprox'
-Plug 'Raimondi/delimitMate'
-Plug 'majutsushi/tagbar'
+
+"Errors display >> arrows
 Plug 'dense-analysis/ale'
-Plug 'Shougo/vimproc.vim'
-Plug 'jiangmiao/auto-pairs' 
-Plug 'xolox/vim-misc'
+
+"Auto close pairs
+Plug 'jiangmiao/auto-pairs'
+
+"Sessions management vim
 Plug 'xolox/vim-session'
+
 Plug 'hail2u/vim-css3-syntax'
+
+"Preview Colors easy
 Plug 'gko/vim-coloresque'
-Plug 'mattn/emmet-vim'
+
+"Plenary Lua Support
 Plug 'nvim-lua/plenary.nvim'
+
+"vim-misc Support plugins
+Plug 'xolox/vim-misc'
+
+"Telescope for finding files/hidden files & explore and fast search/previews
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'joshdick/onedark.vim'
-Plug 'jelera/vim-javascript-syntax'
-Plug 'yuezk/vim-js'
-Plug 'HerringtonDarkholme/yats.vim'
+
 Plug 'mlaursen/vim-react-snippets'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-if isdirectory('/usr/local/opt/fzf')
-  Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-else
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-  Plug 'junegunn/fzf.vim'
-endif
 call plug#end()
 
 syntax on
@@ -160,15 +153,6 @@ let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 35
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite,*node_modules/
 
-" grep.vim
-let Grep_Default_Options = '-IR'
-let Grep_Skip_Files = '*.log *.db'
-let Grep_Skip_Dirs = '.git node_modules'
-
-" terminal emulation
-nnoremap <silent>  <leader>sh :terminal<CR>
-
-
 "*****************************************************************************
 "" Commands
 "*****************************************************************************
@@ -197,64 +181,7 @@ augroup vimrc-remember-cursor-position
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
-"" txt
-augroup vimrc-wrapping
-  autocmd!
-  autocmd BufRead,BufNewFile *.txt call s:setupWrapping()
-augroup END
-
-"" make/cmake
-augroup vimrc-make-cmake
-  autocmd!
-  autocmd FileType make setlocal noexpandtab
-  autocmd BufNewFile,BufRead CMakeLists.txt setlocal filetype=cmake
-augroup END
-
 set autoread
-
-"*****************************************************************************
-"" Mappings
-"*****************************************************************************
-
-"" Split
-noremap <Leader>h :<C-u>split<CR>
-noremap <Leader>v :<C-u>vsplit<CR>
-
-
-
-nnoremap <silent>  <S-t> :tabnew<CR>
-
-"" Set working directory
-
-"" Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e :e <C-R>=expand("%:p:h") . "/" <CR>
-
-"" Opens a tab edit command with the path of the currently edited file filled
-noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-"" fzf.vim
-set wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.pyc,__pycache__
-let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
-
-" The Silver Searcher
-if executable('ag')
-  let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
-  set grepprg=ag\ --nogroup\ --nocolor
-endif
-
-" ripgrep
-if executable('rg')
-  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
-  set grepprg=rg\ --vimgrep
-  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-endif
-
-cnoremap <C-P> <C-R>=expand("%:p:h") . "/" <CR>
-nnoremap <silent>  <leader>b :Buffers<CR>
-nnoremap <silent>  <leader>e :FZF -m<CR>
-"Recovery commands from history through FZF
-nmap <silent> <leader>y :History:<CR>
 
 " snippets
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -265,10 +192,8 @@ let g:UltiSnipsEditSplit="vertical"
 " ale
 let g:ale_linters = {}
 
-" Disable visualbell
-set noerrorbells visualbell t_vb=
-if has('autocmd')
-  autocmd GUIEnter * set visualbell t_vb=
+if !executable('tmux')
+  let g:loaded_vimux = 1
 endif
 
 "" Copy/Paste/Cut
@@ -280,44 +205,9 @@ noremap YY "+y<CR>
 noremap <leader>p "+gP<CR>
 noremap XX "+x<CR>
 
-if has('macunix')
-  " pbcopy for OSX copy/paste
-  vmap <C-x> :!pbcopy<CR>
-  vmap <C-c> :w !pbcopy<CR><CR>
-endif
-
-"" Buffer nav
-noremap <leader>z :bp<CR>
-noremap <leader>q :bp<CR>
-noremap <leader>x :bn<CR>
-noremap <leader>w :bn<CR>
-
-"" Close buffer
-noremap <leader>c :bd<CR>
-
-"" Clean search (highlight)
-nnoremap <silent>  <leader><space> :noh<cr>
-
-"" Switching windows
-
-"" Vmap for maintain Visual Mode after shifting > and <
-vmap < <gv
-vmap > >gv
-
-"" Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-
-"" Open current line on GitHub
-
-"*****************************************************************************
-"" Custom configs
-"*****************************************************************************
-
 " html
 " for html files, 2 spaces
 autocmd Filetype html,js,jsx setlocal ts=2 sw=2 expandtab
-
 
 " javascript
 let g:javascript_enable_domhtmlcss = 1
@@ -376,15 +266,12 @@ else
   let g:airline_symbols.linenr = ''
 endif
 
-" VimScript
-
-
-
 setl nospell
 setl nowrap
 setl tabstop=4
 setl shiftwidth=4
 setl smartindent
+
 let b:vcm_tab_complete = 'javascript'
 let b:javascript_fold = 1
 let g:javascript_plugin_jsdoc = 1
@@ -392,41 +279,7 @@ let g:jsx_ext_required = 0
 set ai
 let g:coc_global_extensions = ['coc-tslint-plugin', 'coc-tsserver', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier']  " list of CoC extensions needed
 
-"this will auto close ( [ {
-
-" these two plugins will add highlighting and indenting to JSX and TSX files.
 set relativenumber
-
-
-" filenames like *.xml, *.html, *.xhtml, ...
-" These are the file extensions where this plugin is enabled.
-"
-
-" filenames like *.xml, *.xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-"
-
-" filetypes like xml, html, xhtml, ...
-" These are the file types where this plugin is enabled.
-"
-
-" filetypes like xml, xhtml, ...
-" This will make the list of non-closing tags self-closing in the specified files.
-"
-
-" integer value [0|1]
-" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
-"
-
-
-" dict
-" Disables auto-close if not in a "valid" region (based on filetype)
-"
-" Shortcut for closing tags, default is '>'
-
-
-" Add > at current position without closing the current tag, default is ''
-"
 
 "nmap <silent> <M-Right> :call animate#window_delta_width(8)<CR>
 "nmap <silent> <M-Left> :call animate#window_delta_width(-8)<CR>
@@ -448,7 +301,6 @@ nmap <silent> <S-j> :BufferMovePrevious<CR>
 nmap <silent> <S-k> :BufferMoveNext<CR>
 nmap <silent> <TAB> :bnext<CR>
 nmap <silent> <S-TAB> :bprevious<CR>
-"nmap <silent> <S-q> :bd<CR> :q<CR>
 nnoremap <silent> <S-q> :BufferClose <CR> :q <CR> :vsplit <CR> :BufferNext<CR>
 nnoremap <silent> <S-w> :q <CR> :bd <CR>
 nnoremap <silent> <A-c> :FloatermToggle<CR>
@@ -458,63 +310,27 @@ cnoreabbrev t ter
 cnoreabbrev n noh
 cnoreabbrev s split
 cnoreabbrev d vsplit
-
 nmap <silent> <S-A-l> :vsplit<CR>
 nmap <silent> <S-A-k> :split<CR>
 nnoremap <silent> f <cmd>Telescope find_files<CR>
 cnoreabbrev f <cmd>Telescope find_files hidden=true<CR>
 
 let g:floaterm_title = ""
-let g:floaterm_position = "right"
+let g:floaterm_position = "center"
 "let g:floaterm_borderchars = ""
 
-nnoremap <silent> <c-s> :w<CR>
-nnoremap <silent> <c-s> <Esc>:w<CR>
 set numberwidth=1
-" presiona tab para autocompletar
-
 
 inoremap <silent> ><Tab> ><Esc>F<lyt>o</<C-r>"><Esc>O<Space>
 
-
-
-" unicode characters in the file autoload/float.vim
-
-" Some servers have issues with backup files, see #649
 set nobackup
 set nowritebackup
 
-" Give more space for displaying messages.
 set cmdheight=1
-
-
-set cmdheight=1
-
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent> <expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <silent> <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
@@ -651,24 +467,12 @@ set guicursor=n-v-c:block-Cursor
 set guicursor+=i:ver100-iCursor
 set guicursor+=n-v-c:blinkon0
 set guicursor+=i:blinkwait10
-
-
-
 :silent
-
-
-
 let NERDTreeMinimalUI=1
   tnoremap <Esc> <C-\><C-n>
   tnoremap <M-[> <Esc>
   tnoremap <C-v><Esc> <Esc>
-autocmd BufEnter NERD_tree_* | execute 'normal R'
-
 set signcolumn=yes
-
-
-
-
 if filereadable(expand("~/.rc.local.bundles"))
   source ~/.rc.local.bundles
 endif
@@ -687,25 +491,13 @@ syntax enable
 set background=dark
 highlight Cursor guifg=#84F8CC guibg=#84F8CC
 set scl=no
-
-
-
-
-
-
 autocmd syntax * 
         \ let a=0+system("wc -L ".expand("%")."|awk '{printf $1}'") |
         \ if a >= 9999999999999 |
         \    syntax off |
         \ endif
-
-
-
-
-
 let NERDTreeDirArrowExpandable = "\u00a0"
 let NERDTreeDirArrowCollapsible = "\u00a0"
-
 autocmd VimEnter * set winfixwidth
 set updatetime=10
 highlight SignColumn guibg=NONE
@@ -726,34 +518,8 @@ augroup MatchWord
   autocmd!
   autocmd! CursorHold,CursorHoldI * call HighlightWordUnderCursor()
 augroup END
-"transparency transparent background opacity
-"hi Normal guibg=NONE ctermbg=NONE
-"autocmd ColorScheme * highlight! link SignColumn LineNr
-
-" Use deoplete.
-
-
-" Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
-
-" Give more space for displaying messages.
-set cmdheight=1
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -769,32 +535,6 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent> <expr> <c-space> coc#refresh()
-else
-  inoremap <silent> <expr> <c-@> coc#refresh()
-endif
-
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent> <expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent>  [g <Plug>(coc-diagnostic-prev)
-nmap <silent>  ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-nmap <silent>  gd <Plug>(coc-definition)
-nmap <silent>  gy <Plug>(coc-type-definition)
-nmap <silent>  gi <Plug>(coc-implementation)
-nmap <silent>  gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window.
-nnoremap <silent>  K :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
   if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
@@ -808,10 +548,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <silent> <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <silent> <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -894,7 +630,6 @@ nnoremap <silent> <nowait> <space>p  :<C-u>CocListResume<CR>
 
 inoremap <silent> <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <silent> <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <silent> <expr> <cr>    pumvisible() ? asyncomplete#close_popup() : "\<cr>"
 imap <c-space> <Plug>(asyncomplete_force_refresh)
 " For Vim 8 (<c-@> corresponds to <c-space>):
 " imap <c-@> <Plug>(asyncomplete_force_refresh)
@@ -903,7 +638,6 @@ imap <c-space> <Plug>(asyncomplete_force_refresh)
 hi Directory guifg=#b1c5eb guibg=NONE
 "#a8d2eb
 "
-" :TODO Occurrences IncSearch
 
 "set cursorline
 nnoremap <silent> ,. daw
@@ -984,5 +718,90 @@ hi Comment guifg=#8085a6 ctermfg=60 gui=NONE cterm=NONE
 
 let g:NERDTreeQuitOnOpen=0
 
+
+filetype plugin indent on
+
+" File:         HTML AutoCloseTag.vim
+" Author:       Michael Sanders (msanders42 [at] gmail [dot] com)
+" Last Updated: April 7 2009
+" Version:      0.3
+" Description:  Automatically closes HTML tag once you finish typing it with >
+
+if exists('b:mapped_auto_closetag') || &cp | finish | endif
+let b:mapped_auto_closetag = 1
+
+ino <buffer> <silent> < <><left>
+ino <buffer> <silent> > <c-r>=<SID>CloseTag()<cr>
+ino <buffer> <expr> <cr> <SID>Return()
+
+if exists('s:did_auto_closetag') | finish | endif
+let s:did_auto_closetag = 1
+
+" Gets the current HTML tag by the cursor.
+fun s:GetCurrentTag()
+	return matchstr(matchstr(getline('.'),
+						\ '<\zs\(\w\|=\| \|''\|"\)*>\%'.col('.').'c'), '^\a*')
+endf
+
+" Cleanly return after autocompleting an html/xml tag.
+fun s:Return()
+	let tag = s:GetCurrentTag()
+	return tag != '' && match(getline('.'), '</'.tag.'>') > -1 ?
+				\ "\<cr>\<cr>\<up>" : "\<cr>"
+endf
+
+fun s:InComment()
+	return stridx(synIDattr(synID(line('.'), col('.')-1, 0), 'name'), 'omment') != -1
+endf
+
+" Counts occurance of needle in page, when not in a comment.
+fun s:CountInPage(needle)
+	let pos = [line('.'), col('.')]
+	call cursor(1, 1)
+	let counter = search(a:needle, 'Wc')
+	while search(a:needle, 'W')
+		if !s:InComment() | let counter += 1 | endif
+	endw
+	call cursor(pos)
+	return counter
+endf
+
+
+" Fix files with prettier, and then ESLint.
+let b:ale_fixers = ['prettier', 'eslint']
+" Equivalent to the above.
+let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
+" vim:noet:sw=4:ts=4:ft=vim
+"
+"" Set this variable to 1 to fix files when you save them.
+let g:ale_fix_on_save = 1
+let g:ale_completion_enabled = 1
+" Returns whether a closing tag has already been inserted.
+fun s:ClosingTag(tag)
+	return s:CountInPage('\c<'.a:tag.'.\{-}>') <= s:CountInPage('\c</'.a:tag.'>')
+endf
+
+" Automatically inserts closing tag after starting tag is typed
+fun s:CloseTag()
+	let line = getline('.')
+	let col = col('.')
+	if line[col-1] != '>' | return '>' | endif
+	let col += 1
+	call cursor(0, col)
+	" Don't autocomplete next to a word or another tag or if inside comment
+	if line[col] !~ '\w\|<\|>' && !s:InComment()
+		let tag = s:GetCurrentTag()
+		" Insert closing tag if tag is not self-closing and has not already
+		" been closed
+		if tag != '' && tag !~ '\vimg|input|link|meta|br|hr|area|base|param|dd|dt'
+					\ && !s:ClosingTag(tag)
+			let line = substitute(line, '\%'.col.'c', '</'.escape(tag, '/').'>', '')
+			call setline('.', line)
+			call cursor(0, col)
+		endif
+	endif
+	return ''
+endf
 lua << EOF
 require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
+EOF

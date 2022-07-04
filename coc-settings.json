@@ -1,24 +1,14 @@
 {
-  "coc.preferences.hoverTarget": "preview",
   "signature.enable": false,
-  "suggest.echodocSupport": false,
+  "javascript.autoClosingTags": true,
+  "javascript.suggest.autoImports": true,
   "suggest.enablePreview": false,
   "suggest.floatEnable": false,
-  "suggest.triggerCompletionWait": 50,
-  "suggest.maxCompleteItemCount": 12,
+  "suggest.triggerCompletionWait": 0,
+  "suggest.maxCompleteItemCount": 10,
   "typescript.preferences.quoteStyle": "double",
   "javascript.preferences.quoteStyle": "double",
-  "typescript.suggest.completeFunctionCalls": true,
-
+  "javascript.suggest.completeFunctionCalls": true,
    "tsserver.formatOnType": true,
-   "coc.preferences.formatOnType": true,
-
-   "languageserver": {
-      "go": {
-         "command": "gopls",
-         "rootPatterns": ["go.mod"],
-         "trace.server": "verbose",
-         "filetypes": ["go"]
-      }
-   }
+   "coc.preferences.formatOnType": true
 }
