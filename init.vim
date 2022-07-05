@@ -13,10 +13,12 @@ Plug 'lewis6991/impatient.nvim'
 Plug 'alvan/vim-closetag'
 Plug 'airblade/vim-gitgutter'
 
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 "Dark minimalist modern colorscheme
 Plug 'wadackel/vim-dogrun'
 
+Plug 'ryanoasis/vim-devicons'
 
 "Soft Dark one dark theme
 Plug 'joshdick/onedark.vim'
@@ -26,7 +28,6 @@ Plug 'voldikss/vim-floaterm'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 "Icons for vim
-Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'pangloss/vim-javascript'
@@ -590,9 +591,10 @@ let g:airline_symbols.linenr = ''
 highlight LineNr guifg=#6a6c8f
 hi CursorLineNr guifg=#73c1a9
 
-hi TabLineSel guifg=#9ea4c2 ctermfg=235 guibg=#2e3343 ctermbg=104 gui=bold cterm=bold
+hi TabLineSel guifg=#9ea4c2 ctermfg=235 guibg=#3e4554 ctermbg=104 gui=bold cterm=bold
+"2e3343
 hi TabLine guifg=#9ea4c2 ctermfg=235 guibg=#1e2230 ctermbg=104 gui=bold cterm=bold
-hi TabLineFill guifg=#8085a6 guibg=#3e4554 ctermbg=104 gui=bold cterm=bold
+hi TabLineFill guifg=#8085a6 guibg=#2e3343 ctermbg=104 gui=bold cterm=bold
 "
 hi Comment guifg=#8085a6 ctermfg=60 gui=NONE cterm=NONE
 
@@ -628,6 +630,7 @@ let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
 let g:ale_fix_on_save = 1
 let g:ale_completion_enabled = 1
 " Returns whether a closing tag has already been inserted.
+
 lua << EOF
 require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
 require('impatient')
