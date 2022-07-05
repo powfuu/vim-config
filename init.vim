@@ -529,7 +529,6 @@ nnoremap <silent> <S-A-q> :qall<CR>
 nnoremap <silent> <S-A-m> :wqall<CR>
 
 :resize
-hi TabLineFill term=bold cterm=bold ctermbg=0
 highlight clear StatusLine
 
 "HIDE NERD TREE STATUS BAR <<< BOTTOM
@@ -558,7 +557,6 @@ set signcolumn=yes
 
 autocmd BufEnter NERD_tree_* let g:NERDTreeWinSize = 35
 
-hi TabLine    gui=NONE guibg=#3e4452 guifg=#abb2bf    cterm=NONE term=NONE ctermfg=black ctermbg=white
 " air-line
 let g:airline_powerline_fonts = 1
 
@@ -591,7 +589,11 @@ let g:airline_symbols.linenr = ''
 "TODO: MODERN THEME VIM
 highlight LineNr guifg=#6a6c8f
 hi CursorLineNr guifg=#73c1a9
-hi TabLineSel guifg=#9ea3c0 ctermfg=235 guibg=#2a2c3f ctermbg=104 gui=bold cterm=bold
+
+hi TabLineSel guifg=#9ea4c2 ctermfg=235 guibg=#2e3343 ctermbg=104 gui=bold cterm=bold
+hi TabLine guifg=#9ea4c2 ctermfg=235 guibg=#1e2230 ctermbg=104 gui=bold cterm=bold
+hi TabLineFill guifg=#8085a6 guibg=#3e4554 ctermbg=104 gui=bold cterm=bold
+"
 hi Comment guifg=#8085a6 ctermfg=60 gui=NONE cterm=NONE
 
 let g:NERDTreeQuitOnOpen=0
@@ -693,7 +695,6 @@ let g:closetag_close_shortcut = '<leader>>'
 
 
 ":set fillchars+=vert:\ 
-:hi TabLineFill guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
 ":let g:airline_statusline_ontop=1
 
 " NOTE: If barbar's option dict isn't created yet, create it
@@ -709,7 +710,8 @@ let bufferline.closable = v:false
 let bufferline.icon_custom_colors = v:false
 
 " Configure icons on the bufferline.
-let bufferline.icon_separator_active = '   ●'
+let bufferline.icon_separator_active = '  Ξ'
+"≒
 let bufferline.icon_separator_inactive = ''
 let bufferline.icon_close_tab = ''
 let bufferline.icon_close_tab_modified = '●'

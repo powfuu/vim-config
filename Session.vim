@@ -13,19 +13,18 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +664 init.vim
+badd +522 init.vim
+badd +1 ~/Desktop/dev/LightlyShaders/lightlyshaders.cpp
+badd +101 ~/Desktop/dev/LightlyShaders/lightlyshaders_config.cpp
 argglobal
 %argdel
-edit init.vim
+edit ~/Desktop/dev/LightlyShaders/lightlyshaders_config.cpp
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
-wincmd _ | wincmd |
-vsplit
-2wincmd h
-wincmd w
+1wincmd h
 wincmd w
 let &splitbelow = s:save_splitbelow
 let &splitright = s:save_splitright
@@ -36,35 +35,10 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 30 + 96) / 192)
-exe 'vert 2resize ' . ((&columns * 35 + 96) / 192)
-exe 'vert 3resize ' . ((&columns * 125 + 96) / 192)
+exe 'vert 1resize ' . ((&columns * 80 + 96) / 192)
+exe 'vert 2resize ' . ((&columns * 111 + 96) / 192)
 argglobal
-enew
-file NvimTree_1
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal nofen
-wincmd w
-argglobal
-enew
-file NERD_tree_1
-balt init.vim
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal nofen
-wincmd w
-argglobal
+balt ~/Desktop/dev/LightlyShaders/lightlyshaders.cpp
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -75,17 +49,40 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 664 - ((20 * winheight(0) + 25) / 51)
+let s:l = 101 - ((44 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 664
-normal! 026|
+keepjumps 101
+normal! 0
+lcd ~/.config/nvim
 wincmd w
-3wincmd w
-exe 'vert 1resize ' . ((&columns * 30 + 96) / 192)
-exe 'vert 2resize ' . ((&columns * 35 + 96) / 192)
-exe 'vert 3resize ' . ((&columns * 125 + 96) / 192)
+argglobal
+if bufexists(fnamemodify("~/.config/nvim/init.vim", ":p")) | buffer ~/.config/nvim/init.vim | else | edit ~/.config/nvim/init.vim | endif
+if &buftype ==# 'terminal'
+  silent file ~/.config/nvim/init.vim
+endif
+balt ~/Desktop/dev/LightlyShaders/lightlyshaders_config.cpp
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 593 - ((25 * winheight(0) + 25) / 51)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 593
+normal! 053|
+wincmd w
+2wincmd w
+exe 'vert 1resize ' . ((&columns * 80 + 96) / 192)
+exe 'vert 2resize ' . ((&columns * 111 + 96) / 192)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
